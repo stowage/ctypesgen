@@ -177,7 +177,10 @@ class CtypesParser(CParser):
            isinstance(t.destination, CtypesSimple) and \
            t.destination.name=="char" and \
            t.destination.signed:
-            t = CtypesSpecial("String")
+            if "const" in t.qualifiers:
+                t = CtypesSpecial("c_char_p")
+            else:
+                t = CtypesSpecial("String")
 
         return t
 
